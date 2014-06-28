@@ -50,7 +50,7 @@ function scrollDown(base) {
 
 // add message on board
 function addMessage(from, target, text, time) {
-	var name = (target == '*' ? 'all' : target);
+	var name = (target == '*' ? '所有人' : target);
 	if(text === null) return;
 	if(time == null) {
 		// if the time is null or undefined, use the current time.
