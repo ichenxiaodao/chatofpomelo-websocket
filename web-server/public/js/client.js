@@ -5,10 +5,10 @@ var rid;
 var base = 1000;
 var increase = 25;
 var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
-var LOGIN_ERROR = "There is no server to log in, please wait.";
-var LENGTH_ERROR = "Name/Channel is too long or too short. 20 character max.";
-var NAME_ERROR = "Bad character in Name/Channel. Can only have letters, numbers, Chinese characters, and '_'";
-var DUPLICATE_ERROR = "Please change your name to login.";
+var LOGIN_ERROR = "没有服务器可以登录，请稍等！";
+var LENGTH_ERROR = "昵称或者房间号太长或太短，最多20个字符！";
+var NAME_ERROR = "昵称或者房间号有非法字符。只能是字符、数字、中文、下划线！";
+var DUPLICATE_ERROR = "你的昵称已经被占用了，请修改之后再进入！";
 
 util = {
 	urlRE: /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g,
@@ -67,7 +67,7 @@ function addMessage(from, target, text, time) {
 	messageElement.addClass("message");
 	// sanitize
 	text = util.toStaticHTML(text);
-	var content = '<tr>' + '  <td class="date">' + util.timeString(time) + '</td>' + '  <td class="nick">' + util.toStaticHTML(from) + ' says to ' + name + ': ' + '</td>' + '  <td class="msg-text">' + text + '</td>' + '</tr>';
+	var content = '<tr>' + '  <td class="date">' + util.timeString(time) + '</td>' + '  <td class="nick">【' + util.toStaticHTML(from) + '】 对 【' + name + '】说: ' + '</td>' + '  <td class="msg-text">' + text + '</td>' + '</tr>';
 	messageElement.html(content);
 	//the log is the stream that we view
 	$("#chatHistory").append(messageElement);
@@ -80,16 +80,16 @@ function tip(type, name) {
 	var tip,title;
 	switch(type){
 		case 'online':
-			tip = name + ' is online now.';
-			title = 'Online Notify';
+			tip = name + ' 上线了.';
+			title = '上线提醒';
 			break;
 		case 'offline':
-			tip = name + ' is offline now.';
-			title = 'Offline Notify';
+			tip = name + ' 下线了.';
+			title = '下线提醒';
 			break;
 		case 'message':
-			tip = name + ' is saying now.'
-			title = 'Message Notify';
+			tip = name + ' 刚才说话了.'
+			title = '消息提醒';
 			break;
 	}
 	var pop=new Pop(title, tip);
